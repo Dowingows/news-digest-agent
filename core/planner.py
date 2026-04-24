@@ -2,6 +2,7 @@ import json
 import re
 from config import AVAILABLE_TOOLS
 from core.llm import call_llm
+from core.debug import log_prompt, log_response
 
 PLANNER_PROMPT = """Você é um planejador de busca de notícias.
 Fontes disponíveis: {tools}
@@ -16,7 +17,9 @@ def plan(user_input: str) -> dict:
         tools=", ".join(AVAILABLE_TOOLS),
         user_input=user_input,
     )
+    log_prompt("PLANNER", prompt)
     response = call_llm(prompt)
+    log_response("PLANNER", response)
 
     match = re.search(r'\{.*\}', response, re.DOTALL)
     if not match:

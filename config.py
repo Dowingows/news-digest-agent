@@ -1,5 +1,5 @@
 OLLAMA_URL   = "http://localhost:11434/api/generate"
-OLLAMA_MODEL = "llama3.2"
+OLLAMA_MODEL = "qwen2.5:7b"
 
 HACKERNEWS_URL = "https://hacker-news.firebaseio.com/v0"
 REDDIT_URL     = "https://www.reddit.com"

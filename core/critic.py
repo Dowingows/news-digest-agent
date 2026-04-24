@@ -2,6 +2,7 @@ import json
 import re
 from config import MAX_CRITIC_OUTPUT
 from core.llm import call_llm
+from core.debug import log_prompt, log_response, log_articles
 
 CRITIC_PROMPT = """Você é um editor crítico de notícias.
 Filtre a lista abaixo e selecione os {max} artigos mais relevantes para o tópico "{topic}".
@@ -26,7 +27,9 @@ def filter_articles(articles: list[dict], topic: str) -> list[dict]:
         articles_list=numbered,
     )
 
+    log_prompt("CRITIC", prompt)
     response = call_llm(prompt)
+    log_response("CRITIC", response)
 
     match = re.search(r'\[[\d,\s]+\]', response)
     if not match:
@@ -35,6 +38,8 @@ def filter_articles(articles: list[dict], topic: str) -> list[dict]:
     try:
         indices = json.loads(match.group())
         selected = [articles[i] for i in indices if 0 <= i < len(articles)]
-        return selected[:MAX_CRITIC_OUTPUT] if selected else articles[:MAX_CRITIC_OUTPUT]
+        result = selected[:MAX_CRITIC_OUTPUT] if selected else articles[:MAX_CRITIC_OUTPUT]
+        log_articles("CRITIC (selecionados)", result)
+        return result
     except (json.JSONDecodeError, IndexError):
         return articles[:MAX_CRITIC_OUTPUT]
