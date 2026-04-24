@@ -1,15 +1,6 @@
 import requests
-from config import REDDIT_URL, ARTICLES_PER_SOURCE
+from config import REDDIT_URL, ARTICLES_PER_SOURCE, TOPIC_TO_SUBREDDIT
 from tools.base import Tool
-
-TOPIC_TO_SUBREDDIT = {
-    "technology":             "technology",
-    "artificial intelligence": "artificial",
-    "python":                 "Python",
-    "programming":            "programming",
-    "science":                "science",
-    "news":                   "worldnews",
-}
 
 HEADERS = {"User-Agent": "news-digest-agent/1.0"}
 
