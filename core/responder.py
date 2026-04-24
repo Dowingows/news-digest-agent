@@ -8,7 +8,7 @@ Para cada artigo use este formato exato:
 
 ### [Título em português]
 [Uma frase resumindo o que é o artigo, baseada no título e descrição]
-📰 {source} · 🔗 [url]
+📰 {{fonte}} · 🔗 {{url}}
 
 ---
 
