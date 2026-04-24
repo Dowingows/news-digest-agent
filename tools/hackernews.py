@@ -28,9 +28,10 @@ class HackerNewsTool(Tool):
     def build_articles(self, data: list[dict]) -> list[dict]:
         return [
             {
-                "title":  item.get("title", "sem título"),
-                "url":    item.get("url", f"https://news.ycombinator.com/item?id={item.get('id')}"),
-                "source": "HackerNews",
+                "title":       item.get("title", "sem título"),
+                "url":         item.get("url", f"https://news.ycombinator.com/item?id={item.get('id')}"),
+                "source":      "HackerNews",
+                "description": f"{item.get('score', 0)} pontos · {item.get('descendants', 0)} comentários",
             }
             for item in data
         ]

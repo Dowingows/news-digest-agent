@@ -29,9 +29,10 @@ class RedditTool(Tool):
     def build_articles(self, data: list[dict]) -> list[dict]:
         return [
             {
-                "title":  post.get("title", "sem título"),
-                "url":    post.get("url", f"https://reddit.com{post.get('permalink', '')}"),
-                "source": "Reddit",
+                "title":       post.get("title", "sem título"),
+                "url":         post.get("url", f"https://reddit.com{post.get('permalink', '')}"),
+                "source":      "Reddit",
+                "description": f"r/{post.get('subreddit', '')} · {post.get('score', 0)} upvotes · {int(post.get('upvote_ratio', 0) * 100)}% positivo",
             }
             for post in data
         ]

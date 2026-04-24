@@ -17,9 +17,10 @@ class DevToTool(Tool):
     def build_articles(self, data: list[dict]) -> list[dict]:
         return [
             {
-                "title":  article.get("title", "sem título"),
-                "url":    article.get("url", ""),
-                "source": "Dev.to",
+                "title":       article.get("title", "sem título"),
+                "url":         article.get("url", ""),
+                "source":      "Dev.to",
+                "description": article.get("description", ""),
             }
             for article in data
         ]

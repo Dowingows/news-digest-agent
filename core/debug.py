@@ -28,5 +28,6 @@ def log_articles(stage: str, articles: list[dict]) -> None:
         return
     print(f"\033[36m┌── ARTIGOS [{stage}] ({len(articles)} itens) {'─' * (40 - len(stage))}\033[0m")
     for i, a in enumerate(articles):
-        print(f"\033[36m│\033[0m  {i}. [{a['source']}] {a['title'][:70]}")
+        desc = f" — {a['description'][:60]}" if a.get("description") else ""
+        print(f"\033[36m│\033[0m  {i}. [{a['source']}] {a['title'][:60]}{desc}")
     print(f"\033[36m└{_BORDER}\033[0m\n")

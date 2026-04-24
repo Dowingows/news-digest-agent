@@ -1,19 +1,31 @@
 from core.llm import call_llm
 from core.debug import log_prompt, log_response
 
-REPORT_PROMPT = """Gere um digest de notícias conciso em português sobre "{topic}".
-Use bullets (•), máximo 8 linhas no total. Para cada artigo inclua o título traduzido e o link.
-Seja direto, sem introdução longa.
+REPORT_PROMPT = """Você é editor de uma newsletter técnica semanal em português.
+Escreva um digest no estilo newsletter sobre "{topic}" com base nos artigos abaixo.
 
-ARTIGOS SELECIONADOS:
-{articles}
+Para cada artigo use este formato exato:
 
-PEDIDO ORIGINAL: {user_input}"""
+### [Título em português]
+[Uma frase resumindo o que é o artigo, baseada no título e descrição]
+📰 {source} · 🔗 [url]
+
+---
+
+Regras:
+- Traduza os títulos para português
+- O resumo deve ser informativo, não genérico ("este artigo fala sobre X")
+- Se a descrição estiver vazia, infira pelo título
+- Não adicione introdução nem conclusão
+
+ARTIGOS:
+{articles}"""
 
 
 def respond(user_input: str, topic: str, articles: list[dict]) -> str:
-    formatted = "\n".join(
-        f"- {a['title']} ({a['source']}) — {a['url']}" for a in articles
+    formatted = "\n\n".join(
+        f"Título: {a['title']}\nDescrição: {a.get('description', '')}\nFonte: {a['source']}\nURL: {a['url']}"
+        for a in articles
     )
     prompt = REPORT_PROMPT.format(
         topic=topic,
